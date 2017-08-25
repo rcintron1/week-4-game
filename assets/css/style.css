@@ -1,3 +1,19 @@
 body{
-  background-image: url("./assets/image")
+  background-image: url("../images/bgimg01.jpg");
+  background-repeat: repeat;
+}
+#div_header{
+  background-color: #cc7031;
+  width: 350px;
+  margin: 20px;
+  padding: 20px;
+}
+#div_header h1{
+  color: white;
+}
+#div_instructions{
+  background-color: #fed;
+  width: 450px;
+  margin: 20px;
+  padding: 20px;
 }
