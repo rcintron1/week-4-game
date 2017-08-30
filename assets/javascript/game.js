@@ -1,30 +1,54 @@
 var crystal = {
-  pool: [],
-  crystalNumber: [],
-  randomNumber: "",
-  imgClick: function(e) {
-    console.log("imageClick", this.id);
-    crystal.divHandler(this.id);
-  },
-  divHandler: function(e) {
-    console.log("divHandler", e);
-
-  },
-  generateRandomNumbers: function() {
-    console.log("function->generateRandomNumbers")
-    this.crystalNumber = [];
-    while (this.crystalNumber.length < 4) {
-      var x = Math.floor(Math.random() * 12) + 1;;
-      if (!(this.crystalNumber.includes(x))) {
-        this.crystalNumber.push(x);
+    pool: [],
+    crystalNumber: [],
+    randomNumber: "",
+    wins:0,
+    losses:0,
+    gamestatus:true,  //if game is not in session
+    imgClick: function(e) {
+      if(crystal.gamestatus){
+        alert("Please start a new game!");
+        return;
+      }
+      console.log("crystal.imageClick->", this.id);
+      var id = crystal.pool.indexOf(this.id);
+      crystal.randomNumber -= crystal.crystalNumber[id];
+      $("#randomNumber").html(crystal.randomNumber);
+      crystal.checkGame();
+    },
+    generateRandomNumbers: function() {
+      crystal.gamestatus=false;
+      console.log("function->generateRandomNumbers")
+      crystalNumber = [];
+      while (crystal.crystalNumber.length < 4) {
+        var x = Math.floor(Math.random() * 12) + 1;
+        if (!(crystal.crystalNumber.includes(x))) {
+          crystal.crystalNumber.push(x);
+        };
       };
-      $("#randomNumber").html(Math.floor(Math.random() * 101) + 19);
+      crystal.randomNumber = (Math.floor(Math.random() * 101) + 19);
+      console.log("randumNumber->", crystal.randomNumber);
+      $("#randomNumber").html(crystal.randomNumber);
+    },
+    // *****************************
+    // *****************************
+    checkGame: function() {
+      var x = crystal.randomNumber
+      console.log("checkGame->", x)
+      if (x > 0) {
+      } else if (x == 0) {
+        console.log("checkGame->you win");
+        crystal.wins += 1;
+        $("#wins").html(crystal.wins)
+        crystal.gamestatus = true;
+      } else if (x < 0) {
+        console.log("checkGame->you lose");
+        crystal.losses += 1;
+        $("#losses").html(crystal.losses);
+        crystal.gamestatus = true;
+      }
     }
-  },
-  checkGame: function() {
-
-  },
-}
+  }
 $(document).ready(function() {
   console.log("function->ready()")
   // Loading images using javascript & jquery
@@ -44,3 +68,13 @@ $(document).ready(function() {
   // end of loading images using javascript & jquery
   $(".btn").on("click", crystal.generateRandomNumbers);
 });
+var scores = {
+  wins: 0,
+  losses: 0,
+  addwin: function() {
+    this.wins += 1;
+  },
+  addloss: function() {
+    this.losses += 1;
+  }
+}
