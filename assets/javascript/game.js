@@ -33,19 +33,18 @@ var crystal = {
     // *****************************
     // *****************************
     checkGame: function() {
-      var x = crystal.randomNumber
+      var x = this.randomNumber
       console.log("checkGame->", x)
       if (x > 0) {
       } else if (x == 0) {
         console.log("checkGame->you win");
-        crystal.wins += 1;
-        $("#wins").html(crystal.wins)
-        crystal.gamestatus = true;
+        $("#wins").html(++this.wins)
+        this.gamestatus = true;
       } else if (x < 0) {
         console.log("checkGame->you lose");
-        crystal.losses += 1;
-        $("#losses").html(crystal.losses);
-        crystal.gamestatus = true;
+        // this.losses += 1;
+        $("#losses").html(++this.losses);
+        this.gamestatus = true;
       }
     }
   }
